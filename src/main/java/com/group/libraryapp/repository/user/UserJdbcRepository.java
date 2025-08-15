@@ -10,12 +10,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository // 자동으로 스프링 빈 등록
-public class UserRepository { // SQL을 사용해 실제 DB와의 통신을 담당한다
+public class UserJdbcRepository { // SQL을 사용해 실제 DB와의 통신을 담당한다
 
     private final JdbcTemplate jdbcTemplate; //jdbc 템플릿을 이용해서 db에 접근 가능한 것
     // @Repository를 통해서 UserRepository도 스프링 빈으로 등록되었으니, 바로 JdbcTemplate 사용 가능하다
 
-    public UserRepository(JdbcTemplate jdbcTemplate){
+    public UserJdbcRepository(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate=jdbcTemplate;
     }
     public boolean isUserNotExist(long id) {
