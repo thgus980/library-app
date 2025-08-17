@@ -36,4 +36,14 @@ public class UserServiceV2 { // JPA 사용하는 버전
         user.updateName(request.getName()); //객체를 변경
         userRepository.save(user); //바뀐 user 기반으로 update 쿼리 날라감
     }
+
+    public void deleteUser(String name) {
+        // select * from user where name = ?
+        User user= userRepository.findByName(name);
+        if (user==null) {
+            throw new IllegalArgumentException();
+        }
+
+        userRepository.delete(user);
+    }
 }
