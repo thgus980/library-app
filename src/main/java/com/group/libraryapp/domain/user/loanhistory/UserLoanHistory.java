@@ -1,9 +1,8 @@
 package com.group.libraryapp.domain.user.loanhistory;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.group.libraryapp.domain.user.User;
+
+import javax.persistence.*;
 
 @Entity
 public class UserLoanHistory {
@@ -12,7 +11,9 @@ public class UserLoanHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id =null;
 
-    private long userId;
+    @ManyToOne // 대출 기록은 여러 개이고, 이 대출 기록을 소유하고 있는 사용자는 한명 (내가 N, 너가 1)
+    //private long userId;
+    private User user;
 
     private String bookName;
 
@@ -22,10 +23,18 @@ public class UserLoanHistory {
         
     }
 
-    public UserLoanHistory(long userId, String bookName){
-        this.userId=userId;
+    public UserLoanHistory(User user, String bookName){
+        this.user=user;
         this.bookName=bookName;
         this.isReturn=false;
+    }
+
+    public void doReturn() { // 대출 기록에 대한 Return
+        this.isReturn=true;
+    }
+
+    public String getBookName(){
+        return this.bookName;
     }
 
 }
